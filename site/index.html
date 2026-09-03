@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Dotmole is an Agent Skill that generates domain ideas, verifies availability through Spaceship, and ranks the strongest candidates."
+    />
+    <meta name="theme-color" content="#007589" />
+    <meta
+      property="og:title"
+      content="Dotmole | Dig up domains worth building on"
+    />
+    <meta
+      property="og:description"
+      content="Go from a naming brief to a verified shortlist of domains worth registering."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://catwithlover.github.io/dotmole/" />
+    <meta
+      property="og:image"
+      content="https://catwithlover.github.io/dotmole/assets/logo.svg"
+    />
+    <link rel="canonical" href="https://catwithlover.github.io/dotmole/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://catwithlover.github.io/dotmole/"
+    />
+    <link
+      rel="alternate"
+      hreflang="zh-Hant"
+      href="https://catwithlover.github.io/dotmole/zh-TW/"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://catwithlover.github.io/dotmole/"
+    />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <title>Dotmole | Dig up domains worth building on</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Dotmole home">
+          <img src="assets/logo.svg" width="46" height="46" alt="" />
+          <span>Dotmole</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link" href="#how-it-works">How it works</a>
+          <a class="nav-link" href="#real-example">Real example</a>
+          <a
+            class="language-link"
+            href="zh-TW/"
+            lang="zh-Hant"
+            hreflang="zh-Hant"
+            >繁中</a
+          >
+          <a class="button button-small" href="#install">Install Dotmole</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> Domain-finding agent skill</p>
+            <h1>
+              Good domains are buried deep.<br />
+              Dotmole digs them up.
+            </h1>
+            <p class="hero-lead">
+              Dotmole starts with your naming brief, digs through brand
+              combinations, wordplay, and domain hacks, verifies availability
+              with Spaceship, and ranks the strongest options.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#install">Install Dotmole</a>
+              <a class="text-link" href="#real-example">
+                See a real search
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </a>
+            </div>
+            <ul class="hero-facts" aria-label="Dotmole highlights">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Read-only API
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Explicitly available only
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Premium pricing surfaced
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="dig-stage"
+            aria-label="Dotmole turning a naming brief into verified domain candidates"
+          >
+            <div class="stage-grid" aria-hidden="true"></div>
+            <svg class="tunnel-line" viewBox="0 0 620 530" aria-hidden="true">
+              <path
+                d="M-20 98 C118 60 145 184 278 166 S408 72 520 145 S598 318 490 338 S278 286 200 382 S38 456 -30 420"
+              />
+            </svg>
+
+            <div class="stage-label">DIGGING DEEPER</div>
+            <div class="mole-orbit">
+              <img
+                src="assets/logo.svg"
+                width="220"
+                height="220"
+                alt="Dotmole mole logo"
+              />
+            </div>
+
+            <div class="domain-chip chip-one">
+              <span class="status-dot"></span>
+              dotmole.io
+            </div>
+            <div class="domain-chip chip-two">
+              <span class="status-dot"></span>
+              digfor.me
+            </div>
+            <div class="domain-chip chip-three">mole.domains</div>
+
+            <div class="query-card">
+              <div class="query-topline">
+                <span>Search complete</span>
+                <span class="query-count">37 candidates</span>
+              </div>
+              <div class="query-track" aria-hidden="true"><span></span></div>
+              <div class="query-foot">
+                <span>verified by Spaceship</span>
+                <strong>available only</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="Search principles">
+        <div class="container proof-grid">
+          <div>
+            <strong>30–40</strong>
+            <span>focused first pass</span>
+          </div>
+          <div>
+            <strong>20 / batch</strong>
+            <span>safe API batching</span>
+          </div>
+          <div>
+            <strong>0 write</strong>
+            <span>no registration or DNS changes</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section process-section" id="how-it-works">
+        <div class="container">
+          <div class="section-heading heading-narrow">
+            <p class="eyebrow"><span></span> How it works</p>
+            <h2>From one brief to a shortlist you can act on</h2>
+            <p>
+              Dotmole understands the product first, then verifies every
+              recommendation.
+            </p>
+          </div>
+
+          <ol class="process-rail">
+            <li>
+              <div class="process-marker">1</div>
+              <div class="process-copy">
+                <p class="process-kicker">Understand the brief</p>
+                <h3>Read the brand and constraints</h3>
+                <p>
+                  Extract the seed, audience, tone, TLDs, length, and premium
+                  tolerance.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="process-marker">2</div>
+              <div class="process-copy">
+                <p class="process-kicker">Dig for candidates</p>
+                <h3>Find variations with a reason</h3>
+                <p>
+                  Mix exact brands, natural compounds, action words, and a few
+                  strong hacks.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="process-marker">3</div>
+              <div class="process-copy">
+                <p class="process-kicker">Verify live</p>
+                <h3>Keep only confirmed options</h3>
+                <p>
+                  Use Spaceship results and flag premium pricing, TLD rules, and
+                  check time.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section case-section" id="real-example">
+        <div class="container">
+          <div class="case-intro">
+            <div class="section-heading">
+              <p class="eyebrow"><span></span> Real run · 2026-09-03</p>
+              <h2>One real Dotmole dig</h2>
+              <p>
+                This run started with 37 candidates and kept only domains
+                Spaceship explicitly reported as available and non-premium at
+                the time.
+              </p>
+            </div>
+            <div class="case-stats" aria-label="Run summary">
+              <div><strong>37</strong><span>candidates</span></div>
+              <div><strong>2</strong><span>naming routes</span></div>
+              <div><strong>0</strong><span>premium picks</span></div>
+            </div>
+          </div>
+
+          <details class="prompt-panel">
+            <summary>
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M8 9h8M8 13h5M5 20l1.4-3.5A8 8 0 1 1 20 10a8 8 0 0 1-8 8H9l-4 2Z"
+                  />
+                </svg>
+                View the complete prompt
+              </span>
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+            </summary>
+            <div class="prompt-content">
+              <p id="example-prompt">
+                My product is called Dotmole, a domain finder. Return two groups
+                of candidates in one pass: one that keeps the full brand name
+                with suitable TLDs, and another that uses wordplay, spelling,
+                compounds, or domain hacks such as digfor.me. Draw from ideas
+                like dot, mole, dig, and domain. Avoid hyphens and numbers.
+                Prioritize names that are short, easy to say and spell, and not
+                premium. Check availability live, recommend only options
+                explicitly available for registration, rank them by group,
+                explain the naming idea and TLD constraints, then choose a
+                primary domain and the best creative alternative.
+              </p>
+              <button
+                class="copy-button copy-button-light"
+                type="button"
+                data-copy-target="example-prompt"
+              >
+                Copy prompt
+              </button>
+            </div>
+          </details>
+
+          <div class="winners" aria-label="Final recommendations">
+            <article class="winner winner-primary">
+              <p>Primary domain</p>
+              <h3>dotmole.io</h3>
+              <span
+                >Full brand, developer-tool fit, and the strongest overall
+                score</span
+              >
+            </article>
+            <article class="winner">
+              <p>Best creative alternative</p>
+              <h3>digfor.me</h3>
+              <span
+                >“Dig for me” turns the product promise into the domain</span
+              >
+            </article>
+          </div>
+
+          <div class="result-layout">
+            <article class="result-group">
+              <div class="result-heading">
+                <div>
+                  <span class="group-index">A</span>
+                  <h3>Full brand + TLD</h3>
+                </div>
+                <span class="availability-badge">Available then</span>
+              </div>
+              <ol class="domain-list">
+                <li>
+                  <span class="rank">01</span>
+                  <div>
+                    <strong>dotmole.io</strong>
+                    <p>Full brand with a developer-tool context.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">02</span>
+                  <div>
+                    <strong>dotmole.app</strong>
+                    <p>Clear product use; HSTS requires HTTPS.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">03</span>
+                  <div>
+                    <strong>dotmole.dev</strong>
+                    <p>Strong developer fit; HTTPS is required.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">04</span>
+                  <div>
+                    <strong>dotmole.me</strong>
+                    <p>A personal “find it for me” quality.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">05</span>
+                  <div>
+                    <strong>dotmole.co</strong>
+                    <p>A formal alternative when .com is taken.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">06</span>
+                  <div>
+                    <strong>dotmole.tools</strong>
+                    <p>Clear meaning, with some added length.</p>
+                  </div>
+                </li>
+              </ol>
+              <p class="backup-line">
+                <strong>Backups</strong> · dotmole.pro · dotmole.net ·
+                dotmole.xyz · dotmole.sh
+              </p>
+            </article>
+
+            <article class="result-group">
+              <div class="result-heading">
+                <div>
+                  <span class="group-index">B</span>
+                  <h3>Creative compounds + Domain hacks</h3>
+                </div>
+                <span class="availability-badge">Available then</span>
+              </div>
+              <ol class="domain-list">
+                <li>
+                  <span class="rank">01</span>
+                  <div>
+                    <strong>digfor.me</strong>
+                    <p>The .me completes a natural product promise.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">02</span>
+                  <div>
+                    <strong>moledig.com</strong>
+                    <p>A direct mole + dig compound with .com.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">03</span>
+                  <div>
+                    <strong>domole.io</strong>
+                    <p>Hides domain and mole inside one short word.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">04</span>
+                  <div>
+                    <strong>digdot.io / .app</strong>
+                    <p>A short verb-and-object construction.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">05</span>
+                  <div>
+                    <strong>mole.domains</strong>
+                    <p>The name states the mole’s job directly.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">06</span>
+                  <div>
+                    <strong>digup.domains</strong>
+                    <p>A complete “dig up domains” phrase.</p>
+                  </div>
+                </li>
+              </ol>
+              <p class="backup-line">
+                <strong>Backups</strong> · moledom.com · moledig.me · digmole.io
+              </p>
+            </article>
+          </div>
+
+          <div class="unverified-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 8v5m0 3h.01M10.3 4.7 3.2 17a2 2 0 0 0 1.7 3h14.2a2 2 0 0 0 1.7-3L13.7 4.7a2 2 0 0 0-3.4 0Z"
+              />
+            </svg>
+            <p>
+              <strong>Unverified:</strong> Spaceship did not support
+              availability checks for dotmol.es or dig.moe at the time, so
+              neither appeared in the recommendations.
+            </p>
+          </div>
+
+          <p class="case-footnote">
+            Provider: Spaceship · checkedAt: 2026-09-03T20:13:29Z.
+          </p>
+        </div>
+      </section>
+
+      <section class="section install-section" id="install">
+        <div class="container install-grid">
+          <div class="install-copy">
+            <p class="eyebrow eyebrow-on-dark"><span></span> Start digging</p>
+            <h2>One command gets your agent digging.</h2>
+            <p>
+              Install the skill, set read-only Spaceship credentials, and
+              describe your brand and constraints in natural language. Requires
+              Node.js 22 or later.
+            </p>
+            <a
+              class="github-link"
+              href="https://github.com/catwithlover/dotmole"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View on GitHub
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="install-console">
+            <div class="console-block">
+              <div class="console-label">
+                <span>Install the skill</span>
+                <button
+                  type="button"
+                  class="copy-button"
+                  data-copy-target="install-command"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code id="install-command">npx skills add catwithlover/dotmole</code></pre>
+            </div>
+            <div class="console-block">
+              <div class="console-label">
+                <span>Set environment variables</span>
+                <button
+                  type="button"
+                  class="copy-button"
+                  data-copy-target="env-command"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code id="env-command">export SPACESHIP_API_KEY="your-api-key"
+export SPACESHIP_API_SECRET="your-api-secret"</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a
+          class="brand footer-brand"
+          href="#top"
+          aria-label="Dotmole, back to top"
+        >
+          <img src="assets/logo.svg" width="40" height="40" alt="" />
+          <span>Dotmole</span>
+        </a>
+        <p>Good domains are buried deep.</p>
+        <a
+          href="https://github.com/catwithlover/dotmole"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub</a
+        >
+      </div>
+    </footer>
+
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+  </body>
+</html>

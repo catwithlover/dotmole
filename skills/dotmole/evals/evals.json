@@ -1,0 +1,35 @@
+{
+  "skill_name": "dotmole",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I am naming an open-source developer tool and want to keep the seed word dotmole. Find available domains, prioritize names that sound credible in software engineering, avoid hyphens and numbers, and explain your top choices.",
+      "expected_output": "Checks relevant exact and compound candidates through Spaceship, prioritizes software-oriented TLDs such as .dev, .app, .sh, and .build, and ranks only confirmed available results with timestamped caveats.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我想做一個園藝愛好者的個人網站。名字不一定要直接叫 garden，可以像 digwith.me 一樣是一句好記的英文。請找一些目前可註冊的選項，並把最好記的排前面。",
+      "expected_output": "Generates natural phrase and domain-hack candidates, checks them through Spaceship, considers relevant gardening and personal-site TLDs, and responds in Traditional Chinese with only verified available recommendations.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Find a domain for a serious B2B deployment platform called Northstack. Prefer .com but include strong technical alternatives, max 16 characters before the dot, no premium names, no creative misspellings.",
+      "expected_output": "Honors length, spelling, premium, and TLD constraints; checks exact and restrained compound candidates; clearly separates unavailable or unknown results from confirmed available recommendations.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Suggest a few domains for my new app, but do not make any network requests and do not claim that anything is available.",
+      "expected_output": "Respects the no-network constraint, labels every idea as unverified, and does not invoke the Spaceship checker or claim availability.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Find available names for a small monitoring service called QuietPing. If the registrar API is unavailable, incomplete, unauthorized, or rate-limited, do not retry repeatedly and do not infer availability from DNS or WHOIS.",
+      "expected_output": "Uses only successful explicit Spaceship availability results, stops rather than launching a second candidate round after provider failures, and labels all failed or omitted checks as unknown.",
+      "files": []
+    }
+  ]
+}

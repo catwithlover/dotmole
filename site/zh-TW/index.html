@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Dotmole 是一個會產生域名靈感、透過 Spaceship 即時確認可用性，並替候選結果排序的 Agent Skill。"
+    />
+    <meta name="theme-color" content="#007589" />
+    <meta property="og:title" content="Dotmole｜挖出真正可用的好網域" />
+    <meta
+      property="og:description"
+      content="從命名靈感到即時可用性確認，讓 agent 只推薦值得註冊的域名。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta
+      property="og:url"
+      content="https://catwithlover.github.io/dotmole/zh-TW/"
+    />
+    <meta
+      property="og:image"
+      content="https://catwithlover.github.io/dotmole/assets/logo.svg"
+    />
+    <link
+      rel="canonical"
+      href="https://catwithlover.github.io/dotmole/zh-TW/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://catwithlover.github.io/dotmole/"
+    />
+    <link
+      rel="alternate"
+      hreflang="zh-Hant"
+      href="https://catwithlover.github.io/dotmole/zh-TW/"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://catwithlover.github.io/dotmole/"
+    />
+    <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../script.js" defer></script>
+    <title>Dotmole｜挖出真正可用的好網域</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要內容</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Dotmole 首頁">
+          <img src="../assets/logo.svg" width="46" height="46" alt="" />
+          <span>Dotmole</span>
+        </a>
+
+        <nav class="main-nav" aria-label="主要導覽">
+          <a class="nav-link" href="#how-it-works">運作方式</a>
+          <a class="nav-link" href="#real-example">實際案例</a>
+          <a class="language-link" href="../" lang="en" hreflang="en"
+            >English</a
+          >
+          <a class="button button-small" href="#install">安裝 Dotmole</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> Domain-finding agent skill</p>
+            <h1>
+              好網域都埋得有點深，<br />
+              Dotmole 幫你挖出來。
+            </h1>
+            <p class="hero-lead">
+              Dotmole 從你的命名需求開始，挖掘品牌組合、諧音與 domain hack，透過
+              Spaceship 即時確認可用性，再把最值得註冊的選項排到前面。
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#install">安裝 Dotmole</a>
+              <a class="text-link" href="#real-example">
+                查看真實查詢
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </a>
+            </div>
+            <ul class="hero-facts" aria-label="Dotmole 特點">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                唯讀 API
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                只列明確 available
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Premium 價格可見
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="dig-stage"
+            aria-label="Dotmole 把命名需求挖掘成已驗證域名的示意圖"
+          >
+            <div class="stage-grid" aria-hidden="true"></div>
+            <svg class="tunnel-line" viewBox="0 0 620 530" aria-hidden="true">
+              <path
+                d="M-20 98 C118 60 145 184 278 166 S408 72 520 145 S598 318 490 338 S278 286 200 382 S38 456 -30 420"
+              />
+            </svg>
+
+            <div class="stage-label">正在往更深處找</div>
+            <div class="mole-orbit">
+              <img
+                src="../assets/logo.svg"
+                width="220"
+                height="220"
+                alt="Dotmole 土撥鼠標誌"
+              />
+            </div>
+
+            <div class="domain-chip chip-one">
+              <span class="status-dot"></span>
+              dotmole.io
+            </div>
+            <div class="domain-chip chip-two">
+              <span class="status-dot"></span>
+              digfor.me
+            </div>
+            <div class="domain-chip chip-three">mole.domains</div>
+
+            <div class="query-card">
+              <div class="query-topline">
+                <span>搜尋完成</span>
+                <span class="query-count">37 candidates</span>
+              </div>
+              <div class="query-track" aria-hidden="true"><span></span></div>
+              <div class="query-foot">
+                <span>verified by Spaceship</span>
+                <strong>available only</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="查詢原則">
+        <div class="container proof-grid">
+          <div>
+            <strong>30–40</strong>
+            <span>首輪精選候選</span>
+          </div>
+          <div>
+            <strong>20 / batch</strong>
+            <span>安全批次查詢</span>
+          </div>
+          <div>
+            <strong>0 write</strong>
+            <span>不註冊、不修改 DNS</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section process-section" id="how-it-works">
+        <div class="container">
+          <div class="section-heading heading-narrow">
+            <p class="eyebrow"><span></span> How it works</p>
+            <h2>從一句需求，到一份能採取行動的清單</h2>
+            <p>不是把字詞機械式排列組合，而是先理解產品，再驗證每一個推薦。</p>
+          </div>
+
+          <ol class="process-rail">
+            <li>
+              <div class="process-marker">1</div>
+              <div class="process-copy">
+                <p class="process-kicker">理解命名脈絡</p>
+                <h3>讀懂品牌與限制</h3>
+                <p>整理 seed word、受眾、語氣、TLD、長度與 Premium 接受度。</p>
+              </div>
+            </li>
+            <li>
+              <div class="process-marker">2</div>
+              <div class="process-copy">
+                <p class="process-kicker">挖掘候選</p>
+                <h3>找出有意義的變化</h3>
+                <p>
+                  混合完整品牌、自然組合詞、動作詞與少量真正成立的 domain hack。
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="process-marker">3</div>
+              <div class="process-copy">
+                <p class="process-kicker">即時驗證</p>
+                <h3>只留下明確可用項目</h3>
+                <p>
+                  以 Spaceship 回應為準，標出 Premium、TLD 限制與 point-in-time
+                  時間。
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section case-section" id="real-example">
+        <div class="container">
+          <div class="case-intro">
+            <div class="section-heading">
+              <p class="eyebrow"><span></span> Real run · 2026-09-03</p>
+              <h2>一次真實的 Dotmole 挖掘</h2>
+              <p>
+                這次查詢從 37 個候選中，只留下 Spaceship 當時明確回報
+                available、且非 Premium 的結果。
+              </p>
+            </div>
+            <div class="case-stats" aria-label="實測摘要">
+              <div><strong>37</strong><span>候選</span></div>
+              <div><strong>2</strong><span>命名路線</span></div>
+              <div><strong>0</strong><span>Premium 推薦</span></div>
+            </div>
+          </div>
+
+          <details class="prompt-panel">
+            <summary>
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M8 9h8M8 13h5M5 20l1.4-3.5A8 8 0 1 1 20 10a8 8 0 0 1-8 8H9l-4 2Z"
+                  />
+                </svg>
+                查看這次使用的完整提示
+              </span>
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+            </summary>
+            <div class="prompt-content">
+              <p id="example-prompt">
+                我的產品叫
+                Dotmole，是一個域名查找器。請一次提供兩類候選：一類保留完整品牌名稱並搭配合適
+                TLD；另一類運用諧音、拼寫、組合詞或 domain hack（例如
+                digfor.me），可結合 dot、mole、dig、domain
+                等概念。不要使用連字號或數字，優先考慮簡短、好念、好拼且非
+                Premium
+                的域名。請即時查詢可用性，只推薦明確可註冊的選項，分組排序並說明命名巧思、TLD
+                限制，最後選出主域名與最佳創意備選。
+              </p>
+              <button
+                class="copy-button copy-button-light"
+                type="button"
+                data-copy-target="example-prompt"
+              >
+                複製提示
+              </button>
+            </div>
+          </details>
+
+          <div class="winners" aria-label="最終建議">
+            <article class="winner winner-primary">
+              <p>主域名</p>
+              <h3>dotmole.io</h3>
+              <span>完整品牌、開發者工具調性，綜合分最高</span>
+            </article>
+            <article class="winner">
+              <p>最佳創意備選</p>
+              <h3>digfor.me</h3>
+              <span>「dig for me」本身就是產品承諾</span>
+            </article>
+          </div>
+
+          <div class="result-layout">
+            <article class="result-group">
+              <div class="result-heading">
+                <div>
+                  <span class="group-index">A</span>
+                  <h3>完整品牌 + TLD</h3>
+                </div>
+                <span class="availability-badge">當時可用</span>
+              </div>
+              <ol class="domain-list">
+                <li>
+                  <span class="rank">01</span>
+                  <div>
+                    <strong>dotmole.io</strong>
+                    <p>完整品牌，符合開發者工具語境。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">02</span>
+                  <div>
+                    <strong>dotmole.app</strong>
+                    <p>用途直接；HSTS 預載，上線必須使用 HTTPS。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">03</span>
+                  <div>
+                    <strong>dotmole.dev</strong>
+                    <p>開發者受眾精準，同樣強制 HTTPS。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">04</span>
+                  <div>
+                    <strong>dotmole.me</strong>
+                    <p>帶有「幫我找」的個人化語感。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">05</span>
+                  <div>
+                    <strong>dotmole.co</strong>
+                    <p>.com 已被註冊時較正式的替代。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">06</span>
+                  <div>
+                    <strong>dotmole.tools</strong>
+                    <p>語義清楚，但整體長度較高。</p>
+                  </div>
+                </li>
+              </ol>
+              <p class="backup-line">
+                <strong>備用池</strong> · dotmole.pro · dotmole.net ·
+                dotmole.xyz · dotmole.sh
+              </p>
+            </article>
+
+            <article class="result-group">
+              <div class="result-heading">
+                <div>
+                  <span class="group-index">B</span>
+                  <h3>創意組合 + Domain hack</h3>
+                </div>
+                <span class="availability-badge">當時可用</span>
+              </div>
+              <ol class="domain-list">
+                <li>
+                  <span class="rank">01</span>
+                  <div>
+                    <strong>digfor.me</strong>
+                    <p>以 .me 補完「dig for me」，語意完整。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">02</span>
+                  <div>
+                    <strong>moledig.com</strong>
+                    <p>mole + dig 的直觀組合，並取得 .com。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">03</span>
+                  <div>
+                    <strong>domole.io</strong>
+                    <p>把 domain 與 mole 隱藏在同一個短詞中。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">04</span>
+                  <div>
+                    <strong>digdot.io / .app</strong>
+                    <p>動詞加受詞，短而有動態感。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">05</span>
+                  <div>
+                    <strong>mole.domains</strong>
+                    <p>名稱本身就是「挖網域的鼴鼠」。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rank">06</span>
+                  <div>
+                    <strong>digup.domains</strong>
+                    <p>完整表達「把網域挖出來」。</p>
+                  </div>
+                </li>
+              </ol>
+              <p class="backup-line">
+                <strong>備用池</strong> · moledom.com · moledig.me · digmole.io
+              </p>
+            </article>
+          </div>
+
+          <div class="unverified-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 8v5m0 3h.01M10.3 4.7 3.2 17a2 2 0 0 0 1.7 3h14.2a2 2 0 0 0 1.7-3L13.7 4.7a2 2 0 0 0-3.4 0Z"
+              />
+            </svg>
+            <p>
+              <strong>未能驗證：</strong>dotmol.es 與 dig.moe 當時不受 Spaceship
+              查詢支援，因此沒有混入推薦清單。
+            </p>
+          </div>
+
+          <p class="case-footnote">
+            Provider: Spaceship · checkedAt: 2026-09-03T20:13:29Z。
+          </p>
+        </div>
+      </section>
+
+      <section class="section install-section" id="install">
+        <div class="container install-grid">
+          <div class="install-copy">
+            <p class="eyebrow eyebrow-on-dark"><span></span> Start digging</p>
+            <h2>一行指令，讓 agent 開始找域名。</h2>
+            <p>
+              安裝後設定 Spaceship 的唯讀
+              credentials，再用自然語言交代品牌與限制。需要 Node.js 22
+              或更新版本。
+            </p>
+            <a
+              class="github-link"
+              href="https://github.com/catwithlover/dotmole"
+              target="_blank"
+              rel="noreferrer"
+            >
+              前往 GitHub
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="install-console">
+            <div class="console-block">
+              <div class="console-label">
+                <span>安裝 skill</span>
+                <button
+                  type="button"
+                  class="copy-button"
+                  data-copy-target="install-command"
+                >
+                  複製
+                </button>
+              </div>
+              <pre><code id="install-command">npx skills add catwithlover/dotmole</code></pre>
+            </div>
+            <div class="console-block">
+              <div class="console-label">
+                <span>設定環境變數</span>
+                <button
+                  type="button"
+                  class="copy-button"
+                  data-copy-target="env-command"
+                >
+                  複製
+                </button>
+              </div>
+              <pre><code id="env-command">export SPACESHIP_API_KEY="your-api-key"
+export SPACESHIP_API_SECRET="your-api-secret"</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a
+          class="brand footer-brand"
+          href="#top"
+          aria-label="Dotmole，回到頁首"
+        >
+          <img src="../assets/logo.svg" width="40" height="40" alt="" />
+          <span>Dotmole</span>
+        </a>
+        <p>好網域都埋得有點深。</p>
+        <a
+          href="https://github.com/catwithlover/dotmole"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub</a
+        >
+      </div>
+    </footer>
+
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+  </body>
+</html>
