@@ -22,7 +22,7 @@
     {
       "id": 4,
       "prompt": "Suggest a few domains for my new app, but do not make any network requests and do not claim that anything is available.",
-      "expected_output": "Respects the no-network constraint, labels every idea as unverified, and does not invoke the Spaceship checker or claim availability.",
+      "expected_output": "Respects the no-network constraint, labels every idea as unverified, does not invoke the Spaceship checker or claim availability, and states that there is no provider check timestamp.",
       "files": []
     },
     {

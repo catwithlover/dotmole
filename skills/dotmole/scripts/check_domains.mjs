@@ -289,11 +289,12 @@ function errorForStatus(status, retryAfter) {
     );
   }
   if (status === 429) {
-    const suffix = retryAfter ? ` Retry after ${retryAfter} seconds.` : "";
+    const normalizedRetryAfter = retryAfter?.trim().slice(0, 128) || null;
+    const suffix = normalizedRetryAfter ? ` Retry-After: ${normalizedRetryAfter}.` : "";
     return new SpaceshipAPIError(
       "rate_limited",
       `Spaceship rate limit reached (HTTP 429).${suffix}`,
-      { status, retryAfter },
+      { status, retryAfter: normalizedRetryAfter },
     );
   }
   if (status >= 300 && status < 400) {
@@ -379,7 +380,7 @@ export async function postJson(
 
     const declaredLength = Number(response.headers.get("content-length"));
     if (Number.isFinite(declaredLength) && declaredLength > MAX_RESPONSE_BYTES) {
-      await response.body.cancel();
+      await response.body.cancel().catch(() => {});
       throw new SpaceshipAPIError(
         "invalid_response",
         "Spaceship response exceeded the safety limit.",
@@ -395,7 +396,7 @@ export async function postJson(
         if (done) break;
         totalBytes += value.byteLength;
         if (totalBytes > MAX_RESPONSE_BYTES) {
-          await reader.cancel();
+          await reader.cancel().catch(() => {});
           throw new SpaceshipAPIError(
             "invalid_response",
             "Spaceship response exceeded the safety limit.",

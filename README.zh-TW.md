@@ -6,7 +6,7 @@
   <p><a href="README.md">English</a> · <strong>繁體中文</strong></p>
 </div>
 
-**Dotmole** 一個會從名稱與 TLD 中挖掘靈感、檢查可用性，並挑出好網域的 skill。
+**Dotmole** 是一個會從名稱與 TLD 中挖掘靈感、檢查可用性，並挑出好網域的 skill。
 
 ## 功能
 
@@ -66,3 +66,7 @@ Linux 或 macOS：
 export SPACESHIP_API_KEY="your-api-key"
 export SPACESHIP_API_SECRET="your-api-secret"
 ```
+
+## 授權
+
+[MIT](LICENSE)

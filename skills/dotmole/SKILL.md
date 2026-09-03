@@ -1,6 +1,7 @@
 ---
 name: dotmole
 description: Dotmole finds, verifies, and ranks available domain names using the read-only Spaceship API. Use whenever a user asks for domain ideas, domain availability, brandable domains, TLD recommendations, naming alternatives, or wordplay/domain hacks, even when they do not explicitly mention Spaceship.
+license: MIT
 compatibility: Requires Node.js 22+, network access, and SPACESHIP_API_KEY plus SPACESHIP_API_SECRET in the process environment for live checks.
 metadata:
   provider: spaceship
@@ -15,9 +16,9 @@ Dig through a naming brief like a domain-hunting mole and surface a short, reaso
 
 Use only the bundled `scripts/check_domains.mjs` checker. It calls the Spaceship domain availability endpoint and requires only `domains:read` permission.
 
-Never register, reserve, renew, transfer, quote, purchase, or modify a domain. Never call DNS, contact, billing, or other write APIs. Do not open `.env`, search for credentials, ask the user to paste secrets, or pass secrets as command arguments. The checker reads credentials only from its process environment and redacts them from errors.
+Never register, reserve, renew, transfer, purchase, or modify a domain. Never call DNS, contact, billing, or other write APIs. Do not open `.env`, search for credentials, ask the user to paste secrets, or pass secrets as command arguments. The checker reads credentials only from its process environment and redacts them from errors. Reporting `premiumPricing` returned by the availability endpoint is allowed, but never present it as a binding price quote.
 
-If the user forbids network access, generate ideas only, label every idea as unverified, and do not run the checker.
+If the user forbids network access, generate ideas only, label every idea as unverified, and do not run the checker. Explicitly state that no provider check or check timestamp exists.
 
 ## Workflow
 
@@ -31,9 +32,9 @@ Extract what the user has already supplied:
 - Tone, language, and geographic relevance
 - Maximum length
 - Whether hyphens, numbers, abbreviations, or invented spellings are acceptable
-- Budget and tolerance for premium names
+- Budget and tolerance for premium names, while recognizing that this checker cannot verify ordinary registration or renewal prices
 
-Do not interrogate a user whose intent is already clear. Ask one concise follow-up only when a missing constraint would materially change the search. Otherwise use sensible defaults: no hyphens or numbers, ordinary pricing preferred, concise English spelling, and a mix of exact and creative options.
+Do not interrogate a user whose intent is already clear. Ask one concise follow-up only when a missing constraint would materially change the search. Otherwise use sensible defaults: no hyphens or numbers, non-premium names preferred, concise English spelling, and a mix of exact and creative options.
 
 ### 2. Build a focused candidate set
 
@@ -64,13 +65,20 @@ DOMAINS
 
 The script validates ASCII-only domain names, de-duplicates candidates, and batches requests in groups of 20. This first version rejects Unicode and `xn--` labels rather than risk checking a different domain through legacy IDNA conversion. Do not add an env-file option or source a credential file yourself.
 
-Interpret the JSON conservatively:
+Always inspect stdout even when the checker exits nonzero. The exit-code contract is:
+
+- `0`: the checker produced a complete report without errors.
+- `2`: usage, input, or configuration error. Input and configuration errors include structured JSON on stdout; command-line syntax errors may write only to stderr.
+- `3`: the checker produced structured JSON with provider, validation, or partial-result errors. Preserve any explicit `available` results in that report.
+- `1`: unexpected checker failure; structured JSON is not guaranteed.
+
+Interpret every structured report conservatively:
 
 - Recommend only results whose `availability` is exactly `available`.
 - The checker normalizes Spaceship's `taken` provider result to `unavailable`.
 - Treat `unknown`, omitted results, and failed batches as unverified.
 - Treat `complete: false` as a partial result and explain what was not checked.
-- Show `premiumPricing` when present. Do not invent ordinary registration or renewal prices.
+- Show `premiumPricing` when present as provider-returned point-in-time information, not as a binding quote. Do not invent ordinary registration or renewal prices. If the user supplied a budget, state that ordinary pricing could not be verified.
 - If credentials are missing, tell the user to export both variables before launching a new agent process. Do not work around this by reading `.env`.
 
 Only when the first API pass has `complete: true`, if fewer than 8 useful names are available, generate one additional pass informed by unavailable names. Do not launch a second pass after authentication, permission, rate-limit, network, or malformed-response errors. Keep the complete search to at most 60 candidates unless the user explicitly asks for a broader search.
@@ -85,20 +93,20 @@ Adapt ranking to the user's stated priorities. When no custom weighting is given
 | Memorability and pronunciation | 20 |
 | TLD relevance and audience trust | 20 |
 | Brevity and spelling clarity | 20 |
-| Commercial friction, including premium pricing | 10 |
+| Known commercial friction, including returned premium pricing | 10 |
 
 Use the score to order choices, not to imply scientific precision. Penalize unnecessary hyphens, digits, awkward plurals, ambiguous spelling, weak TLD fit, premium pricing the user did not accept, and obvious trademark risk. Never claim legal clearance.
 
 ### 5. Present the answer
 
-Respond in the user's language. Lead with 5 to 10 best options in a compact table:
+Respond in the user's language. After a live check, lead with up to 10 best confirmed options in a compact table. If fewer than 5 useful domains are confirmed available, return only those domains; never pad the list with unavailable or unverified names. In idea-only mode, present up to 10 ideas under an explicit unverified heading instead.
 
 | Rank | Domain | Why it fits | Availability | Premium price |
 | ---: | --- | --- | --- | --- |
 
 Then include a short creative-alternatives section only when it adds value. Mention significant TLD caveats, such as HTTPS requirements or sponsored/geographic status, without overwhelming the recommendation.
 
-End with the provider and `checkedAt` timestamp. State that availability is point-in-time and does not reserve the domain, so the user should recheck immediately before registration.
+When at least one provider request occurred, end with the provider and `checkedAt` timestamp. State that availability is point-in-time and does not reserve the domain, so the user should recheck immediately before registration. If no request occurred because network access was forbidden or credentials, input, or configuration were invalid, state that no live check was performed and do not present a report timestamp as a provider check time.
 
 ## API details
 

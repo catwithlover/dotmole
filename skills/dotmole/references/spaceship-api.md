@@ -38,8 +38,19 @@ The official `DomainAvailabilityStatus` values are:
 - `tldNotSupported`: normalize to `unknown` and report that Spaceship does not support the TLD.
 - `unexpectedError`: normalize to `unknown` and report that availability could not be determined.
 
-`premiumPricing` may contain operation, price, and currency entries. Show those values when present, but do not invent ordinary registration or renewal prices when the API does not return them.
+`premiumPricing` may contain operation, price, and currency entries. Show those values as point-in-time provider information when present, not as a binding quote. The endpoint does not provide ordinary registration or renewal prices, so do not claim that a non-premium domain meets a budget without a separate authorized price source.
 
 Availability is point-in-time information, not a reservation. State the provider and check time in recommendations and advise the user to recheck immediately before registration.
+
+## CLI exit behavior
+
+The checker may emit useful structured JSON on stdout with a nonzero exit code:
+
+- `0`: complete report without errors.
+- `2`: usage, input, or configuration error. Input and configuration failures emit JSON; argument syntax failures may emit only stderr.
+- `3`: provider, validation, or partial-result errors with JSON on stdout.
+- `1`: unexpected failure; JSON is not guaranteed.
+
+Always parse stdout when it contains JSON. A timestamp created for an input, credential, or configuration failure is report-generation time, not evidence that a provider request occurred.
 
 The first version of the checker rejects both Unicode input and `xn--` internationalized labels rather than applying an implicit runtime-specific IDNA conversion. IDN checking can be added later with an explicit IDNA2008 dependency.

@@ -340,6 +340,22 @@ test("redirect is reported without following", async () => {
   assert.equal(calls, 1);
 });
 
+test("preserves HTTP-date Retry-After without labeling it as seconds", async () => {
+  const retryAfter = "Wed, 21 Oct 2015 07:28:00 GMT";
+  const fetchImpl = async () =>
+    new Response("", { status: 429, headers: { "Retry-After": retryAfter } });
+
+  await assert.rejects(
+    postJson(API_URL, {}, { domains: ["safe.dev"] }, 1, { fetchImpl }),
+    (error) =>
+      error instanceof SpaceshipAPIError &&
+      error.code === "rate_limited" &&
+      error.retryAfter === retryAfter &&
+      error.message.includes(`Retry-After: ${retryAfter}.`) &&
+      !error.message.includes(`${retryAfter} seconds`),
+  );
+});
+
 test("HTTP permission error is normalized", async () => {
   let cancelled = false;
   const body = new ReadableStream({
@@ -403,6 +419,41 @@ test("non-standard JSON constant is rejected", async () => {
 test("oversized response is rejected before parsing", async () => {
   const fetchImpl = async () =>
     new Response("{}", { status: 200, headers: { "Content-Length": "2000001" } });
+  await assert.rejects(
+    postJson(API_URL, {}, { domains: ["safe.dev"] }, 1, { fetchImpl }),
+    (error) => error instanceof SpaceshipAPIError && error.code === "invalid_response",
+  );
+});
+
+test("oversized declared response remains normalized when cancellation fails", async () => {
+  const body = new ReadableStream({
+    cancel() {
+      throw new Error("cancel failed");
+    },
+  });
+  const fetchImpl = async () =>
+    new Response(body, { status: 200, headers: { "Content-Length": "2000001" } });
+
+  await assert.rejects(
+    postJson(API_URL, {}, { domains: ["safe.dev"] }, 1, { fetchImpl }),
+    (error) => error instanceof SpaceshipAPIError && error.code === "invalid_response",
+  );
+});
+
+test("oversized streamed response remains normalized when cancellation fails", async () => {
+  let sent = false;
+  const body = new ReadableStream({
+    pull(controller) {
+      if (sent) return;
+      sent = true;
+      controller.enqueue(new Uint8Array(2_000_001));
+    },
+    cancel() {
+      throw new Error("cancel failed");
+    },
+  });
+  const fetchImpl = async () => new Response(body, { status: 200 });
+
   await assert.rejects(
     postJson(API_URL, {}, { domains: ["safe.dev"] }, 1, { fetchImpl }),
     (error) => error instanceof SpaceshipAPIError && error.code === "invalid_response",

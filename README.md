@@ -66,3 +66,7 @@ Linux or macOS:
 export SPACESHIP_API_KEY="your-api-key"
 export SPACESHIP_API_SECRET="your-api-secret"
 ```
+
+## License
+
+[MIT](LICENSE)
