@@ -48,7 +48,7 @@ cp -r skills/dotmole ~/.config/opencode/skills/
 
 ## 環境需求
 
-- Node.js 22 或更新版本
+- Node.js 24 或更新版本
 - 具有 `domains:read` 唯讀權限的 Spaceship API credentials
 
 ## 環境變數

@@ -48,7 +48,7 @@ You can also ask Dotmole to generate ideas without making network requests. In t
 
 ## Requirements
 
-- Node.js 22 or later
+- Node.js 24 or later
 - Spaceship API credentials with read-only `domains:read` permission
 
 ## Environment variables

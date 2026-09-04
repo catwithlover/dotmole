@@ -2,7 +2,7 @@
 name: dotmole
 description: Dotmole finds, verifies, and ranks available domain names using the read-only Spaceship API. Use whenever a user asks for domain ideas, domain availability, brandable domains, TLD recommendations, naming alternatives, or wordplay/domain hacks, even when they do not explicitly mention Spaceship.
 license: MIT
-compatibility: Requires Node.js 22+, network access, and SPACESHIP_API_KEY plus SPACESHIP_API_SECRET in the process environment for live checks.
+compatibility: Requires Node.js 24+, network access, and SPACESHIP_API_KEY plus SPACESHIP_API_SECRET in the process environment for live checks.
 metadata:
   provider: spaceship
   access: read-only
