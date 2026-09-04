@@ -9,7 +9,7 @@ export const BATCH_SIZE = 20;
 export const DEFAULT_TIMEOUT = 15;
 export const MAX_DOMAINS = 60;
 export const MAX_STDIN_BYTES = 16_384;
-export const USER_AGENT = "dotmole/1.0";
+export const USER_AGENT = "dotmole/0.1";
 
 const MAX_RESPONSE_BYTES = 2_000_000;
 const MAX_JSON_DEPTH = 100;

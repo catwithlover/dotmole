@@ -30,7 +30,7 @@ Do not open `.env`, search for credentials, accept secrets in command arguments,
 
 Treat only an explicit `result: "available"` from a successful response as available. Treat missing items, unfamiliar result values, malformed responses, and failed batches as unknown rather than guessing.
 
-Authentication, permission, rate-limit, network, timeout, redirect, 5xx, and whole-response schema failures apply to the provider request as a whole. After one of these failures, stop sending batches and mark every remaining domain as unknown. Per-domain statuses in an otherwise valid response affect only those domains, so later batches may continue.
+All HTTP-level, transport-level, and whole-response schema failures apply to the provider request as a whole. After one of these failures, stop sending batches and mark every remaining domain as unknown. Per-domain statuses in an otherwise valid response affect only those domains, so later batches may continue.
 
 The official `DomainAvailabilityStatus` values are:
 
