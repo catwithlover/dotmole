@@ -1047,6 +1047,34 @@ code {
   color: rgb(255 255 255 / 66%);
 }
 
+.install-copy > .agent-support {
+  display: flex;
+  max-width: 480px;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgb(95 207 128 / 22%);
+  border-radius: 10px;
+  background: rgb(95 207 128 / 7%);
+  color: rgb(255 255 255 / 76%);
+  font-size: 14px;
+}
+
+.agent-support::before {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgb(95 207 128 / 13%);
+  content: "";
+}
+
+.agent-support strong {
+  color: #ffffff;
+}
+
 .github-link {
   margin-top: 22px;
   color: #ffffff;
