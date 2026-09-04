@@ -30,6 +30,8 @@ Do not open `.env`, search for credentials, accept secrets in command arguments,
 
 Treat only an explicit `result: "available"` from a successful response as available. Treat missing items, unfamiliar result values, malformed responses, and failed batches as unknown rather than guessing.
 
+Authentication, permission, rate-limit, network, timeout, redirect, 5xx, and whole-response schema failures apply to the provider request as a whole. After one of these failures, stop sending batches and mark every remaining domain as unknown. Per-domain statuses in an otherwise valid response affect only those domains, so later batches may continue.
+
 The official `DomainAvailabilityStatus` values are:
 
 - `available`: normalize to `available`.
@@ -52,5 +54,7 @@ The checker may emit useful structured JSON on stdout with a nonzero exit code:
 - `1`: unexpected failure; JSON is not guaranteed.
 
 Always parse stdout when it contains JSON. A timestamp created for an input, credential, or configuration failure is report-generation time, not evidence that a provider request occurred.
+
+The checker accepts at most 60 unique domains in one invocation and at most 16 KiB through standard input. Exceeding either limit returns `input_limit_exceeded` without sending a provider request; input is never silently truncated.
 
 The first version of the checker rejects both Unicode input and `xn--` internationalized labels rather than applying an implicit runtime-specific IDNA conversion. IDN checking can be added later with an explicit IDNA2008 dependency.

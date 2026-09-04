@@ -6,6 +6,8 @@ import {
   API_URL,
   ConfigurationError,
   DomainInputError,
+  MAX_DOMAINS,
+  MAX_STDIN_BYTES,
   SpaceshipAPIError,
   SpaceshipClient,
   main,
@@ -77,6 +79,22 @@ test("batches twenty domains and preserves order", async () => {
   assert.deepEqual(report.results.map((item) => item.domain), domains);
   assert.equal(report.complete, true);
   assert.deepEqual(report.errors, []);
+});
+
+test("rejects more than sixty domains without calling the provider", async () => {
+  let calls = 0;
+  const transport = async () => {
+    calls += 1;
+    return { domains: [] };
+  };
+  const domains = Array.from({ length: MAX_DOMAINS + 1 }, (_, index) => `candidate-${index}.dev`);
+  const report = await new SpaceshipClient("key", "secret", { transport }).checkDomains(domains);
+
+  assert.equal(calls, 0);
+  assert.equal(report.complete, false);
+  assert.equal(report.results.length, MAX_DOMAINS + 1);
+  assert.equal(report.results.every((item) => item.availability === "unknown"), true);
+  assert.equal(report.errors[0].code, "input_limit_exceeded");
 });
 
 test("normalizes availability and premium pricing", async () => {
@@ -218,6 +236,65 @@ test("rate limit marks current and remaining batches unknown", async () => {
   assert.equal(report.results.slice(0, 20).every((item) => item.availability === "available"), true);
   assert.equal(report.results.slice(20).every((item) => item.availability === "unknown"), true);
   assert.equal(report.errors[0].retryAfter, "10");
+});
+
+test("global provider failures stop all remaining batches", async (context) => {
+  for (const error of [
+    new SpaceshipAPIError("network_error", "Network failed."),
+    new SpaceshipAPIError("timeout", "Timed out."),
+    new SpaceshipAPIError("redirect_rejected", "Redirected.", { status: 302 }),
+    new SpaceshipAPIError("provider_error", "Provider failed.", { status: 500 }),
+    new SpaceshipAPIError("invalid_response", "Invalid response."),
+  ]) {
+    await context.test(error.code, async () => {
+      let calls = 0;
+      const transport = async () => {
+        calls += 1;
+        throw error;
+      };
+      const domains = Array.from({ length: 41 }, (_, index) => `candidate-${index}.dev`);
+      const report = await new SpaceshipClient("key", "secret", { transport }).checkDomains(domains);
+
+      assert.equal(calls, 1);
+      assert.equal(report.complete, false);
+      assert.equal(report.results.every((item) => item.availability === "unknown"), true);
+      assert.deepEqual(report.errors[0].domains, domains);
+    });
+  }
+});
+
+test("domain-specific provider statuses do not stop later batches", async () => {
+  let calls = 0;
+  const transport = async (_url, _headers, payload) => {
+    calls += 1;
+    return {
+      domains: payload.domains.map((domain) => ({
+        domain,
+        result: calls === 1 ? "tldNotSupported" : "available",
+      })),
+    };
+  };
+  const domains = Array.from({ length: 21 }, (_, index) => `candidate-${index}.dev`);
+  const report = await new SpaceshipClient("key", "secret", { transport }).checkDomains(domains);
+
+  assert.equal(calls, 2);
+  assert.equal(report.results.at(-1).availability, "available");
+  assert.equal(report.errors[0].code, "tld_not_supported");
+});
+
+test("invalid response schema stops all remaining batches", async () => {
+  let calls = 0;
+  const transport = async () => {
+    calls += 1;
+    return {};
+  };
+  const domains = Array.from({ length: 41 }, (_, index) => `candidate-${index}.dev`);
+  const report = await new SpaceshipClient("key", "secret", { transport }).checkDomains(domains);
+
+  assert.equal(calls, 1);
+  assert.equal(report.results.every((item) => item.availability === "unknown"), true);
+  assert.equal(report.errors[0].code, "invalid_response");
+  assert.deepEqual(report.errors[0].domains, domains);
 });
 
 test("missing provider results are never assumed available", async () => {
@@ -558,6 +635,41 @@ test("reads domains from stdin", async () => {
 
   assert.equal(exitCode, 0);
   assert.deepEqual(report.results.map((item) => item.domain), ["first.dev", "second.app"]);
+});
+
+test("CLI reports too many unique domains as an input error", async () => {
+  let calls = 0;
+  const transport = async () => {
+    calls += 1;
+    return { domains: [] };
+  };
+  const domains = Array.from({ length: MAX_DOMAINS + 1 }, (_, index) => `candidate-${index}.dev`);
+  const output = captureOutput();
+  const exitCode = await main(domains, {
+    env: { SPACESHIP_API_KEY: "key", SPACESHIP_API_SECRET: "secret" },
+    stdout: output.stream,
+    transport,
+  });
+  const report = JSON.parse(output.read());
+
+  assert.equal(exitCode, 2);
+  assert.equal(calls, 0);
+  assert.equal(report.errors[0].code, "input_limit_exceeded");
+  assert.equal(report.results.length, MAX_DOMAINS + 1);
+});
+
+test("CLI rejects oversized stdin before checking credentials", async () => {
+  const output = captureOutput();
+  const exitCode = await main(["--stdin"], {
+    env: {},
+    stdin: Readable.from(["x".repeat(MAX_STDIN_BYTES + 1)]),
+    stdout: output.stream,
+  });
+  const report = JSON.parse(output.read());
+
+  assert.equal(exitCode, 2);
+  assert.equal(report.errors[0].code, "input_limit_exceeded");
+  assert.deepEqual(report.results, []);
 });
 
 test("configuration error keeps input errors", async () => {

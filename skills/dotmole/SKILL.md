@@ -63,7 +63,7 @@ dotmole.build
 DOMAINS
 ```
 
-The script validates ASCII-only domain names, de-duplicates candidates, and batches requests in groups of 20. This first version rejects Unicode and `xn--` labels rather than risk checking a different domain through legacy IDNA conversion. Do not add an env-file option or source a credential file yourself.
+The script validates ASCII-only domain names, de-duplicates candidates, accepts at most 60 unique candidates and 16 KiB of standard input, and batches requests in groups of 20. This first version rejects Unicode and `xn--` labels rather than risk checking a different domain through legacy IDNA conversion. Do not add an env-file option or source a credential file yourself.
 
 Always inspect stdout even when the checker exits nonzero. The exit-code contract is:
 
@@ -81,7 +81,7 @@ Interpret every structured report conservatively:
 - Show `premiumPricing` when present as provider-returned point-in-time information, not as a binding quote. Do not invent ordinary registration or renewal prices. If the user supplied a budget, state that ordinary pricing could not be verified.
 - If credentials are missing, tell the user to export both variables before launching a new agent process. Do not work around this by reading `.env`.
 
-Only when the first API pass has `complete: true`, if fewer than 8 useful names are available, generate one additional pass informed by unavailable names. Do not launch a second pass after authentication, permission, rate-limit, network, or malformed-response errors. Keep the complete search to at most 60 candidates unless the user explicitly asks for a broader search.
+Only when the first API pass has `complete: true`, if fewer than 8 useful names are available, generate one additional pass informed by unavailable names. Do not launch a second pass after authentication, permission, rate-limit, network, or malformed-response errors. Keep the complete search to at most 60 candidates.
 
 ### 4. Rank confirmed results
 

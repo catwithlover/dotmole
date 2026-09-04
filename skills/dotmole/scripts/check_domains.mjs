@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 export const API_URL = "https://spaceship.dev/api/v1/domains/available";
 export const BATCH_SIZE = 20;
 export const DEFAULT_TIMEOUT = 15;
+export const MAX_DOMAINS = 60;
+export const MAX_STDIN_BYTES = 16_384;
 export const USER_AGENT = "dotmole/1.0";
 
 const MAX_RESPONSE_BYTES = 2_000_000;
@@ -524,6 +526,13 @@ export class SpaceshipClient {
 
   async checkDomains(values) {
     const domains = normalizeDomains(values);
+    if (domains.length > MAX_DOMAINS) {
+      return errorReport(
+        "input_limit_exceeded",
+        `At most ${MAX_DOMAINS} unique domains may be checked at once.`,
+        domains,
+      );
+    }
     const checkedAt = utcNow();
     const results = new Map();
     const errors = [];
@@ -554,8 +563,7 @@ export class SpaceshipClient {
         }
       } catch (error) {
         if (!(error instanceof SpaceshipAPIError)) throw error;
-        const stop = [401, 403, 429].includes(error.status);
-        const affected = stop ? domains.slice(start) : batch;
+        const affected = domains.slice(start);
         for (const domain of affected) {
           if (!results.has(domain)) results.set(domain, unknownResult(domain));
         }
@@ -569,8 +577,7 @@ export class SpaceshipClient {
           normalizedError.retryAfter = this.safeMessage(String(error.retryAfter)).slice(0, 128);
         }
         errors.push(normalizedError);
-        if (stop) break;
-        continue;
+        break;
       }
 
       const expected = new Set(batch);
@@ -634,11 +641,13 @@ export class SpaceshipClient {
         errors.push({ code, message, domains: affectedDomains });
       }
       if (malformedItems) {
-        batchResults = new Map(batch.map((domain) => [domain, unknownResult(domain)]));
+        const affected = domains.slice(start);
+        batchResults = new Map(affected.map((domain) => [domain, unknownResult(domain)]));
         errors.push({
           code: "unexpected_results",
-          message: "Spaceship returned unexpected response items; the batch was not trusted.",
-          domains: batch,
+          message:
+            "Spaceship returned unexpected response items; the current and remaining batches were not trusted.",
+          domains: affected,
         });
       }
 
@@ -652,6 +661,7 @@ export class SpaceshipClient {
           domains: missing,
         });
       }
+      if (malformedItems) break;
     }
 
     return {
@@ -708,9 +718,16 @@ function parseArgs(argv) {
   return args;
 }
 
-async function readAll(stream) {
+async function readAll(stream, maxBytes) {
   let content = "";
-  for await (const chunk of stream) content += chunk.toString();
+  let totalBytes = 0;
+  for await (const chunk of stream) {
+    totalBytes += typeof chunk === "string" ? Buffer.byteLength(chunk) : chunk.byteLength;
+    if (totalBytes > maxBytes) {
+      throw new DomainInputError(`Standard input exceeds the ${maxBytes}-byte limit.`);
+    }
+    content += chunk.toString();
+  }
   return content;
 }
 
@@ -750,7 +767,15 @@ export async function main(
 
   const rawDomains = [...args.domains];
   if (args.stdin) {
-    const content = await readAll(stdin);
+    let content;
+    try {
+      content = await readAll(stdin, MAX_STDIN_BYTES);
+    } catch (error) {
+      if (!(error instanceof DomainInputError)) throw error;
+      const report = errorReport("input_limit_exceeded", error.message);
+      stdout.write(`${stringifyReport(report, args.pretty)}\n`);
+      return 2;
+    }
     rawDomains.push(...content.split(/\r?\n/).filter((line) => line.trim()));
   }
 
@@ -773,6 +798,17 @@ export async function main(
   if (!valid.length) {
     const report = errorReport("invalid_input", "No valid domains were provided.");
     report.errors = inputErrors.length ? inputErrors : report.errors;
+    stdout.write(`${stringifyReport(report, args.pretty)}\n`);
+    return 2;
+  }
+
+  if (valid.length > MAX_DOMAINS) {
+    const report = errorReport(
+      "input_limit_exceeded",
+      `At most ${MAX_DOMAINS} unique domains may be checked at once.`,
+      valid,
+    );
+    report.errors = [...inputErrors, ...report.errors];
     stdout.write(`${stringifyReport(report, args.pretty)}\n`);
     return 2;
   }
